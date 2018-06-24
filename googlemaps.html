@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Circles</title>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+<body onload='loadDoc()'>
+    <div id="map"></div>
+    <script>
+      // This example creates circles on the map, representing populations in North
+      // America.
+      var n=1;
+      var hor=0.05
+      var vert=0.05
+      var lati=19.32
+      var lon=-99.233209
+      var rcirculos
+      var circulos=[]
+      var radios=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]
+      var citymap = {
+        area1: {
+          center: {lat: lati+0*hor, lng: lon+0*vert},
+          population: 2714856
+        },
+        area2: {
+          center: {lat: lati+1*hor, lng: lon+0*vert},
+          population: 2714856
+        },
+        area3: {
+          center: {lat: lati+2*hor, lng: lon+0*vert},
+          population: 2714856
+        },
+        area4: {
+          center: {lat: lati+3*hor, lng: lon+0*vert},
+          population: 2714856
+        },
+        area5: {
+          center: {lat: lati+4*hor, lng: lon+0*vert},
+          population: 2714856
+        }
+        ,
+        area6: {
+          center: {lat: lati+0*hor, lng: lon+1*vert},
+          population: 2714856
+        }
+        ,
+        area7: {
+          center: {lat: lati+1*hor, lng: lon+1*vert},
+          population: 2714856
+        },
+        area8: {
+          center: {lat: lati+2*hor, lng: lon+1*vert},
+          population: 2714856
+        },
+        area9: {
+          center: {lat: lati+3*hor, lng: lon+1*vert},
+          population: 2714856
+        },
+        area10: {
+        center: {lat: lati+4*hor, lng: lon+1*vert},
+          population: 2714856
+        },
+        area11: {
+          center: {lat: lati+0*hor, lng: lon+2*vert},
+          population: 2714856
+        },
+        area12: {
+          center: {lat: lati+1*hor, lng: lon+2*vert},
+          population: 2714856
+        },
+        area13: {
+          center: {lat: lati+2*hor, lng: lon+2*vert},
+          population: 2714856
+        },
+        area14: {
+          center: {lat: lati+3*hor, lng: lon+2*vert},
+          population: 2714856
+        },
+        area15: {
+          center: {lat: lati+4*hor, lng: lon+2*vert},
+          population: 2714856
+        },
+        area16: {
+        center: {lat: lati+0*hor, lng: lon+3*vert},
+          population: 2714856
+        },
+        area17: {
+      center: {lat: lati+1*hor, lng: lon+3*vert},
+          population: 2714856
+        },
+        area18: {
+    center: {lat: lati+2*hor, lng: lon+3*vert},
+          population: 2714856
+        },
+        area19: {
+  center: {lat: lati+3*hor, lng: lon+3*vert},
+          population: 2714856
+        },
+        area20: {
+  center: {lat: lati+4*hor, lng: lon+3*vert},
+          population: 2714856
+        },
+        area21: {
+center: {lat: lati+0*hor, lng: lon+4*vert},
+          population: 2714856
+        },
+        area22: {
+center: {lat: lati+1*hor, lng: lon+4*vert},
+          population: 2714856
+        },
+        area23: {
+center: {lat: lati+2*hor, lng: lon+4*vert},
+          population: 2714856
+        },
+        area24: {
+center: {lat: lati+3*hor, lng: lon+4*vert},
+          population: 2714856
+        },
+        area25: {
+center: {lat: lati+4*hor, lng: lon+4*vert},
+          population: 2714856
+        }
+      };
+
+function loadDoc()
+      {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function()
+        {
+          if (this.readyState == 4 && this.status == 200)
+          {
+          myFunction(this);
+          }
+        };
+        xhttp.open('GET','xml/radios.xml',true);
+        xhttp.send();
+        setTimeout('loadDoc()',10000);
+      }
+
+      function myFunction(xml)
+      {
+        var i;
+        var xmlDoc = xml.responseXML;
+        ida = xmlDoc.getElementsByTagName('id');
+        for (i = 0; i < ida.length; i++)
+        {
+        radios[i] = ida[i].childNodes[0].nodeValue;
+        }
+      var mexico = new google.maps.LatLng(19.432608,-99.133209);
+      var mapCanvas = document.getElementById("map");
+      var mapOptions = {center: mexico, zoom: 11};
+      var map = new google.maps.Map(mapCanvas,mapOptions);
+      i=0
+      for (var city in citymap)
+      {
+          i=i+1
+          var cityCircle = new google.maps.Circle(
+          {
+            strokeColor: '#FF0000',
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: '#FF0000',
+            fillOpacity: 0.35,
+            map: map,
+            center: citymap[city].center,
+            radius: radios[i-1] * 800
+          });
+        }
+      }
+
+      function initMap() {
+        // Create the map.
+        var mexico = new google.maps.LatLng(19.432608,-99.133209);
+        var mapCanvas = document.getElementById("map");
+        var mapOptions = {center: mexico, zoom: 11};
+        var map = new google.maps.Map(mapCanvas,mapOptions);
+
+        // Construct the circle for each value in citymap.
+        // Note: We scale the area of the circle based on the population.
+/*
+        var i=0
+        for (var city in citymap) {
+          // Add the circle for this city to the map.
+          i=i+1
+          var cityCircle = new google.maps.Circle({
+            strokeColor: '#FF0000',
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: '#FF0000',
+            fillOpacity: 0.35,
+            map: map,
+            center: citymap[city].center,
+            radius: radios[i-1] * 100});
+
+    }
+    */
+  }
+
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD1J4kZfy0PyFEBfLEmW9EEzL0fiUs2DtM&callback=initMap">
+    </script>
+  </body>
+</html>
